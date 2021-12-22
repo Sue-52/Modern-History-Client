@@ -6,9 +6,12 @@
   <div>4</div>
 
   <div>5</div>
+  <DemoPage />
 </template>
 
-<script lang="ts"></script>
+<script lang="ts" setup>
+import DemoPage from "./Demo/DemoPage.vue";
+</script>
 
 <style lang="scss">
 div {

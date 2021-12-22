@@ -16,6 +16,7 @@
     "echarts": "^5.2.2",
     "github-markdown-css": "^5.1.0",
     "husky": "^7.0.4",
+    "mavon-editor": "3.0.0-beta",
     "normalize.css": "^8.0.1",
     "sass-loader": "10.1.1",
     "vue": "^3.2.26",
