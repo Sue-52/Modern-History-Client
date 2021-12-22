@@ -11,16 +11,6 @@
     "prepare": "husky install",
     "release": "standard-version"
   },
-  "config": {
-    "commitizen": {
-      "path": "node_modules/cz-conventional-changelog"
-    }
-  },
-  "commitlint": {
-    "extends": [
-      "@commitlint/config-conventional"
-    ]
-  },
   "dependencies": {
     "core-js": "^3.6.5",
     "echarts": "^5.2.2",
@@ -51,6 +41,7 @@
     "@vue/eslint-config-prettier": "^6.0.0",
     "@vue/eslint-config-typescript": "^7.0.0",
     "@vue/test-utils": "^2.0.0-0",
+    "axios": "^0.18.0",
     "commitizen": "^4.2.4",
     "commitlint-config-cz": "^0.13.3",
     "cz-conventional-changelog": "^3.3.0",
@@ -62,7 +53,18 @@
     "sass": "^1.45.1",
     "standard-version": "^9.3.2",
     "typescript": "~4.1.5",
+    "vue-cli-plugin-axios": "~0.0.4",
     "vue-jest": "^5.0.0-0"
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  },
+  "config": {
+    "commitizen": {
+      "path": "node_modules/cz-conventional-changelog"
+    }
   },
   "husky": {
     "hooks": {
