@@ -1,2 +1,8 @@
 // 引入变量
 @import "./variables.scss";
+
+.container {
+  width: 1240px;
+  margin: 0 auto;
+  position: relative;
+}

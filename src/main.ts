@@ -4,6 +4,7 @@ import { createApp } from "vue";
 import "normalize.css";
 // MD文件样式引入
 import "github-markdown-css";
+// fullpage.js
 import App from "./App.vue";
 import router from "./router";
 import store from "./store";
