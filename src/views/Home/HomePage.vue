@@ -1,9 +1,11 @@
 <template>
   <div id="main">
     <div class="full-page">
+      <!-- 第一页 -->
       <div class="setion">
         <HomeFirstPage></HomeFirstPage>
       </div>
+      <!-- 第二页 -->
       <div class="section"></div>
     </div>
   </div>
