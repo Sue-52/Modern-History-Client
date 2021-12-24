@@ -4,9 +4,6 @@ import { createApp } from "vue";
 import "normalize.css";
 // MD文件样式引入
 import "github-markdown-css";
-// fullpage.js
-import 'fullpage.js/vendors/scrolloverflow';
-import VueFullpage from 'vue-fullpage.js'
 import App from "./App.vue";
 import router from "./router";
 import store from "./store";
@@ -17,4 +14,4 @@ const app = createApp(App);
 import movenEditer from "mavon-editor";
 import "mavon-editor/dist/css/index.css";
 
-app.use(store).use(router).use(VueFullpage).use(movenEditer).mount("#app");
+app.use(store).use(router).use(movenEditer).mount("#app");

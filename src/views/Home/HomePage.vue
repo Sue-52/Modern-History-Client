@@ -1,9 +1,11 @@
 <template>
   <div id="main">
-    <div class="setion">
-      <HomeFirstPage></HomeFirstPage>
+    <div class="full-page">
+      <div class="setion">
+        <HomeFirstPage></HomeFirstPage>
+      </div>
+      <div class="section"></div>
     </div>
-    <div class="setion">1231231</div>
   </div>
 </template>
 
@@ -12,10 +14,11 @@ import HomeFirstPage from "@/views/Home/components/HomeFirstPage.vue";
 </script>
 
 <style lang="scss">
-#main {
+#main,
+.full-page {
   width: 100%;
   height: 100%;
-  .first {
+  .setion {
     width: 100%;
     height: 100%;
   }
