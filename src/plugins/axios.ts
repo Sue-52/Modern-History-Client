@@ -1,11 +1,11 @@
 import axios from "axios";
 // Create a new axios instance
-axios.defaults.baseURL = process.env.baseURL || process.env.apiUrl || "";
+axios.defaults.baseURL = "/api/v1";
 axios.defaults.headers.post["Content-Type"] =
   "application/x-www-form-urlencoded";
 
 const config = {
-  baseURL: process.env.baseURL || process.env.apiUrl || "",
+  baseURL: "/api/v1",
   timeout: 60 * 1000, // Timeout,
   withCredentials: true, // Check cross-site Access-Control
 };
@@ -29,20 +29,6 @@ _axios.interceptors.response.use(
     return response.data;
   },
   (error) => {
-    if (error.response.status) {
-      switch (error.response.status) {
-        case 400:
-          return {
-            code: 400,
-            message: "网络请求不存在",
-          };
-        default:
-          return {
-            message: error.response.data.message,
-            code: error.response.status,
-          };
-      }
-    }
     return Promise.reject(error.response);
   }
 );

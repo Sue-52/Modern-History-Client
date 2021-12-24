@@ -1,7 +1,7 @@
 <template>
   <div
     class="home-page"
-    v-for="(item, index) in data"
+    v-for="(item, index) in homeData"
     :class="{ fade: index === currentIndex }"
     :key="item.id"
   >
@@ -15,7 +15,7 @@
       <!-- 索引展示 -->
       <div class="home-index">
         <span class="index_inner">0{{ index + 1 }}</span>
-        <span class="index_total">0{{ data.length }}</span>
+        <span class="index_total">0{{ homeData.length }}</span>
       </div>
       <!-- 事件名 -->
       <div class="home-event">
@@ -33,7 +33,7 @@
     <div class="home-right">
       <!-- 右侧背景图片 -->
       <div class="event-image">
-        <img :src="item.Image" v-if="true" />
+        <img :src="item.image" v-if="true" />
       </div>
       <!-- 详细信息 -->
       <transition name="name">
@@ -95,142 +95,39 @@
 
 <script lang="ts" setup>
 import { ref } from "@vue/reactivity";
-import image01 from "@/assets/images/01.9-18.jpg";
-import image02 from "@/assets/images/02.changzheng.jpg";
-import image03 from "@/assets/images/03.songhuhuizhan.jpg";
-import image04 from "@/assets/images/04.xuzhouhuizhan.jpg";
-import image05 from "@/assets/images/05.changshahuizhan.jpg";
-import image06 from "@/assets/images/06.xiangxihuizhan.webp";
+import { getHomePageData } from "@/api/home";
 
-const data = ref([
-  {
-    id: 1,
-    title: "九一八事变",
-    description:
-      "九·一八事变，又称奉天事变、柳条湖事件。是1931年9月18日日本驻中国东北地区的关东军突然袭击沈阳，以武力侵占东北的事件。九·一八事变是由日本蓄意制造并发动的侵华战争，是日本帝国主义企图以武力征服中国的开端，是中国抗日战争的起点，标志着中国局部抗战的开始，揭开了第二次世界大战东方战场的序幕。九一八事变后，中国人民的局部抗战也标志着世界反法西斯战争的起点。",
-    Image: image01,
-    moreInfo: {
-      otherName: ["奉天事变", "柳条湖事件"],
-      happenTiem: "1931年9月18日",
-      place: "中国东北地区",
-      mainPerson: {
-        china: "张学良",
-        japan: "本庄繁，南次郎",
-      },
-      consequence: "日本占领东北三省，退出国际联盟",
-      result: "日本获胜,占领东北三省",
-    },
-  },
-  {
-    id: 2,
-    title: "长征",
-    description:
-      "土地革命战争时期，中国工农红军主力撤离长江南北各苏区，转战两年，到达陕甘苏区的战略转移行动。1934年10月，第五次反“围剿”失败后，中央主力红军为摆脱国民党军队的包围追击，被迫实行战略性转移，退出中央根据地，进行长征。",
-    Image: image02,
-    moreInfo: {
-      otherName: ["长征"],
-      happenTiem: "1934年10月 - 1936年10月",
-      place: "闽赣粤湘桂黔川滇 西康 甘陕等",
-      mainPerson: {
-        china: "毛泽东、周恩来、朱德、张闻天等",
-        japan: "",
-      },
-      consequence: "北上抗日、摆脱敌军“围剿”",
-      result: "宣言书、宣传队、播种机",
-    },
-  },
-  {
-    id: 3,
-    title: "淞沪会战",
-    description:
-      "淞沪会战（又称八一三战役、第二次淞沪抗战，日本称为第二次上海事变），是中日双方在抗日战争中的第一场大型会战，也是整个中日战争中进行的规模最大、战斗最惨烈的一场战役。 ",
-    Image: image03,
-    moreInfo: {
-      otherName: ["八一三战役", "第二次淞沪抗战"],
-      happenTiem: "1937年8月13日 - 1937年11月12日",
-      place: "上海",
-      mainPerson: {
-        china: "冯玉祥（后由蒋介石兼任）",
-        japan: "松井石根",
-      },
-      consequence: "日本获胜，上海沦陷",
-      result: "粉碎了“三个月灭亡中国”计划",
-    },
-  },
-  {
-    id: 4,
-    title: "徐州会战",
-    description:
-      "徐州会战是抗日战争时期中日双方在以江苏省徐州为中心的津浦（天津至浦口）、陇海（宝鸡至连云港）铁路地区进行的一次大规模防御战役，其中以1938年三四月间的台儿庄大战最为著名，因围歼日军一万余人，史称之为台儿庄大捷。徐州会战对日军给予了巨大的打击，大大迟滞了日军进攻的脚步，为中方部署武汉会战赢得了时间。",
-    Image: image04,
-    moreInfo: {
-      otherName: ["徐州会战"],
-      happenTiem: "1938年1月 - 5月",
-      place: "江苏省徐州为中心的津浦、陇海地区",
-      mainPerson: {
-        china: "李宗仁",
-        japan: "寺内寿一",
-      },
-      consequence: "为武汉保卫战赢得时间",
-      result: "徐州沦陷",
-    },
-  },
-  {
-    id: 5,
-    title: "第一次长沙会战",
-    description:
-      "第一次长沙会战（又称为“第一次长沙战役”、“湘北会战”，日本称“湘赣会战”），是指中华民国二十八年（1939年）9月至10月抗日战争期间，中国第九战区部队在以湖南、湖北、江西三省接壤地区对日本军队进行的防御战役。",
-    Image: image05,
-    moreInfo: {
-      otherName: ["第一次长沙战役", "湘北会战"],
-      happenTiem: "1939年9月 - 1939年10月",
-      place: "湖南、湖北、江西三省接壤地区",
-      mainPerson: {
-        china: "薛岳、罗卓英",
-        japan: "冈村宁次",
-      },
-      consequence: "国民政府粮食、兵员及工业资源的重要供给基地",
-      result: "中国获胜",
-    },
-  },
-  {
-    id: 6,
-    title: "湘西会战",
-    description:
-      "湘西会战，也称“雪峰山会战”，是中国抗日战争时期正面战场的最后一次会战。侵华日军此战目的是争夺芷江空军基地，故又名“芷江作战”",
-    Image: image06,
-    moreInfo: {
-      otherName: ["雪峰山会战", "芷江保卫战"],
-      happenTiem: "1945年4月9日 - 6月7日",
-      place: "湖南省西部地区",
-      mainPerson: {
-        china: "何应钦、王耀武",
-        japan: "坂西一良",
-      },
-      consequence: "抗日战争最后一次会战",
-      result: "中国军队获胜，日军败退",
-    },
-  },
-]);
+const homeData = ref([]);
+const getData = () => {
+  getHomePageData().then((res) => {
+    console.log(res);
+    if (res.code === 200) {
+      homeData.value = res.data;
+    }
+  });
+};
+getData();
+
 // 展示更多信息
 const isShow = ref(true);
 const toggle = () => {
   isShow.value = !isShow.value;
 };
-// 轮播图设置
+//#region 轮播图设置
 const currentIndex = ref(0);
 const handleClike = (step) => {
   const nextStep = (currentIndex.value += step);
   console.log(nextStep);
   if (nextStep <= 0) {
-    currentIndex.value = data.value.length - 1;
-  } else if (nextStep > data.value.length - 1) {
+    currentIndex.value = homeData.value.length - 1;
+  } else if (nextStep > homeData.value.length - 1) {
     currentIndex.value = 0;
   } else {
     currentIndex.value = nextStep;
   }
   return nextStep;
 };
+//#endregion
 // import DemoPage from "@/Demo/DemoPage.vue";
 </script>
 
