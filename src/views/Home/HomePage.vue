@@ -10,6 +10,7 @@
     </div>
   </div>
 </template>
+<script lang="ts" setup>
 import HomeFirstPage from "@/views/Home/components/HomeFirstPage.vue";
 </script>
 
