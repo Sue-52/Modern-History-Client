@@ -155,7 +155,7 @@ const handleClike = (step) => {
   left: 0;
   width: 100%;
   height: 100%;
-  font-family: cursive;
+  // font-family: cursive;
   overflow: hidden;
   opacity: 0;
   transition: opacity 0.5s linear;

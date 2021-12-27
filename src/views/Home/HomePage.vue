@@ -105,7 +105,7 @@ const mouseWheelHandle = (event) => {
   }
 
   .section2 {
-    background-color: greenyellow;
+    background-color: #fff;
   }
   .section3 {
     background-color: lightblue;
