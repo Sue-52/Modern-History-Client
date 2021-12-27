@@ -115,7 +115,6 @@ interface HomePageData {
 }
 const homeData = ref<HomePageData[]>([]);
 
-
 const getData = () => {
   getHomePageData().then((res: any) => {
     console.log(res);
