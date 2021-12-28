@@ -3,7 +3,8 @@
     <div
       class="full-page"
       ref="fullPage"
-      @mousewheel.prevent="mouseWheelHandle"
+      @mousewheel.stop="mouseWheelHandle"
+      @DOMMouseScroll="mouseWheelHandle"
     >
       <!-- 第一页 -->
       <div class="section section1">
@@ -69,6 +70,13 @@ const directToMove = onMounted(() => {
 });
 // mouseWheelHandle()
 const mouseWheelHandle = (event) => {
+  // 添加冒泡阻止
+  // let evt = event || window.event;
+  // if (evt.stoppropagation) {
+  //   evt.stoppropagation();
+  // } else {
+  //   evt.returnvalue = false;
+  // }
   if (isScrolling.value) return false;
   let e = event.originalEvent || event;
   deltaY.value = e.deltaY;
