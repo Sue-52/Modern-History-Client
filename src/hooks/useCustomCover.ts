@@ -1,3 +1,4 @@
+// @ts-nocheck
 import BMap from "BMap";
 
 export default function ComplexCustomOverlay(center, length, color) {
@@ -14,12 +15,12 @@ ComplexCustomOverlay.prototype.initialize = function (map) {
   // 保存map对象实例
   this._map = map;
   // 创建div元素，作为自定义覆盖物的容器
-  var div = document.createElement("div");
+  const div = document.createElement("div");
   div.style.position = "absolute";
   // 可以根据参数设置元素外观
   div.style.width = this._length + "px";
   div.style.height = this._length + "px";
-  div.style.opacity = 0.3;
+  div.style.opacity = 0.2;
   div.style.borderRadius = "50%";
   div.style.background = this._color;
   // 将div添加到覆盖物容器中
@@ -34,24 +35,22 @@ ComplexCustomOverlay.prototype.initialize = function (map) {
 // 绘制地图覆盖物
 ComplexCustomOverlay.prototype.draw = function () {
   // 根据地理坐标转换为像素坐标，并设置给容器
-  var position = this._map.pointToOverlayPixel(this._center);
+  const position = this._map.pointToOverlayPixel(this._center);
+  // console.log(position);
   this._div.style.left = position.x - this._length / 2 + "px";
   this._div.style.top = position.y - this._length / 2 + "px";
 };
 
-// 手动控制覆盖物显示隐藏
-ComplexCustomOverlay.prototype.toggle = function () {
-  console.log(this._div);
-  if (this._div) {
-    if (this._div.style.display == "") {
-      this.hide();
-    } else {
-      this.show();
-    }
-  }
-};
+// 手动控制覆盖物显示
+// ComplexCustomOverlay.prototype.show = function () {
+//   if (this._div) {
+//     this._div.style.display = "";
+//   }
+// };
 
-// 自定义覆盖物事件样板
-// ComplexCustomOverlay.prototype.addEventListener = function () {
-//   console.log(11);
+// // 手动控制覆盖物隐藏
+// ComplexCustomOverlay.prototype.hide = function () {
+//   if (this._div) {
+//     this._div.style.display = "none";
+//   }
 // };
