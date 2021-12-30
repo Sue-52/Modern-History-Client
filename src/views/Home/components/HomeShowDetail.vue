@@ -168,6 +168,7 @@ onMounted(() => {
     flex-wrap: nowrap;
     justify-content: center;
     color: #851d20;
+
     .timeline-date {
       // float: left;
       width: 120px;
@@ -203,6 +204,9 @@ onMounted(() => {
       font-size: 28px;
       border-radius: 10px;
       border: 3px #ccc;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
     }
   }
 }

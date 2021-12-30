@@ -15,8 +15,11 @@
         <HomeShowDetail></HomeShowDetail>
       </div>
       <div class="section section3">3</div>
+      <div class="section section4">4</div>
+      <div class="section section5">5</div>
+      <div class="section section6">6</div>
     </div>
-    <div class="ico_down" v-if="current <= 1" @click="next"></div>
+    <div class="ico_down" v-if="current <= 4" @click="next"></div>
     <div class="ico_Up" v-if="current >= 1" @click="prev"></div>
   </div>
 </template>
@@ -34,7 +37,7 @@ const deltaY = ref(0);
 
 // next()
 const next = () => {
-  if (current.value < 2) {
+  if (current.value < 5) {
     current.value += 1;
     move(current.value);
   } else {
@@ -48,7 +51,7 @@ const prev = () => {
     current.value -= 1;
     move(current.value);
   } else {
-    current.value = 2;
+    current.value = 5;
     move(current.value);
   }
 };
@@ -117,6 +120,15 @@ const mouseWheelHandle = (event) => {
   }
   .section3 {
     background-color: lightblue;
+  }
+  .section4 {
+    background-color: gold;
+  }
+  .section5 {
+    background-color: lightgreen;
+  }
+  .section6 {
+    background-color: wheat;
   }
 }
 .ico_down {
