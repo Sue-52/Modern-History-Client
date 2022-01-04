@@ -132,6 +132,6 @@ export default {
 
 .active {
   opacity: 1;
-  transition: all 1.3s;
+  z-index: 888;
 }
 </style>

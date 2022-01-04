@@ -1,8 +1,15 @@
 import { createStore } from "vuex";
-
-export default createStore({
+import map, { MapDataProps } from "./map";
+export interface GloabelDataProps {
+  map: MapDataProps;
+}
+const store = createStore({
   state: {},
   mutations: {},
   actions: {},
-  modules: {},
+  modules: {
+    map,
+  },
 });
+
+export default store;
