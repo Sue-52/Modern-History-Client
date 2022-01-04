@@ -31,7 +31,7 @@ jobs:
           GITHUB_EMAIL: "1428482231@qq.com"
           GITHUB_USERNAME: "Silence-dream"
           # github 开发者秘钥
-          PUBLISH_REPO: https://${{ secrets.PAT }}@github.com:Morder-History/Modern-History-Client.git
+          PUBLISH_REPO: https://${{ secrets.PAT }}@github.com/Morder-History/Modern-History-Client.git
           PUBLISH_BRANCH: gh-pages
           PUBLISH_DIR: ./dist
           # github 开发者秘钥 同上面那个一样的
