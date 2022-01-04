@@ -171,10 +171,11 @@ const handleClike = (step) => {
       height: 75px;
       width: auto;
       padding: 38px 0px 0px 0px;
+      margin-left: 50px;
 
       > img {
         line-height: 75px;
-        width: 550px;
+        width: 650px;
         height: auto;
       }
     }

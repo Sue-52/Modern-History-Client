@@ -1,4 +1,6 @@
+// console.log(process.env);
 module.exports = {
+  publicPath: "./",
   configureWebpack: {
     externals: {
       BMap: "BMap",
@@ -32,11 +34,20 @@ module.exports = {
   devServer: {
     proxy: {
       "/api": {
-        target: "http://47.108.197.220:3010",
+        target:
+          process.env.BABEL_ENV === "development"
+            ? "http://47.108.197.220:3010/"
+            : "",
         changeOrigin: true, //是否跨域
         ws: true, //是否代理 websockets
         secure: true, //是否https接口
       },
     },
   },
+  outputDir: "dist",
+  // assetsDir: "public",
+  indexPath: "index.html",
+  filenameHashing: true,
+  lintOnSave: true,
+  runtimeCompiler: false,
 };

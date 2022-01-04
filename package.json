@@ -20,12 +20,14 @@
     "mavon-editor": "3.0.0-beta",
     "normalize.css": "^8.0.1",
     "sass-loader": "10.1.1",
+    "three": "^0.136.0",
     "vue": "^3.2.26",
     "vue-baidu-map": "^0.21.22",
     "vue-echarts": "^6.0.0",
     "vue-loader": "^17.0.0",
     "vue-router": "^4.0.0-0",
-    "vuex": "^4.0.0-0"
+    "vuex": "^4.0.0-0",
+    "axios": "0.18.0"
   },
   "devDependencies": {
     "@commitlint/cli": "^15.0.0",
@@ -45,7 +47,6 @@
     "@vue/eslint-config-prettier": "^6.0.0",
     "@vue/eslint-config-typescript": "^7.0.0",
     "@vue/test-utils": "^2.0.0-0",
-    "axios": "^0.18.0",
     "commitizen": "^4.2.4",
     "commitlint-config-cz": "^0.13.3",
     "cz-conventional-changelog": "^3.3.0",
