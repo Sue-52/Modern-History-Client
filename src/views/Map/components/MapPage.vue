@@ -45,10 +45,7 @@ export default {
         birth: "由远东国际军事法庭判处无期徒刑",
       },
     ]);
-    // let allWarData = ref([]);
-    // 当前年份所有战争信息
 
-    // store.commit("map/GetWarData", 1931);
     onMounted(async () => {
       // 创建地图实例
       let map = new BMap.Map("container");
@@ -70,13 +67,9 @@ export default {
       map.addControl(new BMap.ScaleControl());
 
       // 获取战争详情数据
-      let { data: allWarData } = await getWarData(1931);
-      // console.log(allWarData);
+      let { data: allWarData } = await getWarData(1938);
       // 存放战争标记信息
       let warSquareArr = [];
-      // 存储当前点击的战争索引
-      // let warIndex = 0;
-
       // 循环遍历添加一个或多个战争标记
       for (let i = 0; i < allWarData.length; i++) {
         for (let y = 0; y < allWarData[i].warfareCenter.length; y++) {
@@ -97,29 +90,39 @@ export default {
             let point = new BMap.Point(lon, lat);
             map.panTo(point);
 
-            if (getNowZoom.value == 5) {
+            if (getNowZoom.value !== 7) {
               timer = setTimeout(() => {
                 // 地图级别+1
-                map.setZoom(map.getZoom() + 2);
+                map.setZoom(7);
                 clearTimeout(timer);
               }, 500);
             }
 
             // 让弹出框显示
-            // jumpBox.value = true;
             emit("handleWarOpen", true);
           });
         }
       }
 
-      // 创建战争圈标记
-      let mySquare = new useCustomCover(
-        new BMap.Point(123.43, 41.8),
-        200,
-        "red"
-      );
-      map.addOverlay(mySquare);
-      mySquare._div.style.display = "none";
+      // 存放所有战争圈
+      let AllMySquare = [];
+      // 循环遍历添加多个战争圈
+      for (let i = 0; i < allWarData.length; i++) {
+        for (let y = 0; y < allWarData[i].warfareCenter.length; y++) {
+          // 经纬度
+          let lon = allWarData[i].warfareCenter[y].lon;
+          let lat = allWarData[i].warfareCenter[y].lat;
+          // 创建战争圈标记
+          let mySquare = new useCustomCover(
+            new BMap.Point(lon, lat),
+            200,
+            "red"
+          );
+          map.addOverlay(mySquare);
+          AllMySquare.push(mySquare);
+          mySquare._div.style.display = "none";
+        }
+      }
 
       // 创建战争圈主要人物
       // 标记位置（手动）
@@ -151,7 +154,6 @@ export default {
             map.addOverlay(peopleSquare);
             // 人物标记点击
             peopleSquare.addEventListener("click", function () {
-              // console.log(nowPeoplaeSquare);
               emit("handlePeopleOpen", true, warPeopleList.value[i]);
             });
             peopleSquare.hide();
@@ -163,21 +165,18 @@ export default {
       // 监听地图缩放事件
       map.addEventListener("zoomend", function () {
         let nowzoom = this.getZoom();
-        // let timer = null;
         getNowZoom.value = nowzoom;
 
         // 判断当前地图级别是否为5，如果不是则删除标点
         if (nowzoom == 7) {
-          mySquare._div.style.display = "";
+          AllMySquare.forEach((item) => (item._div.style.display = ""));
 
           // 将人物标记逐一展示
-          peopleSquareArr.forEach((item, index) => {
-            setTimeout(() => {
-              item.show();
-            }, 400 * (index + 1));
+          peopleSquareArr.forEach((item) => {
+            item.show();
           });
         } else if (nowzoom < 7) {
-          mySquare._div.style.display = "none";
+          AllMySquare.forEach((item) => (item._div.style.display = "none"));
 
           peopleSquareArr.forEach((item) => item.hide());
         }
