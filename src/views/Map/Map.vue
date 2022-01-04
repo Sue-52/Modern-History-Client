@@ -3,6 +3,7 @@
   <MapPage
     @handleWarOpen="handleWarOpenOrClose"
     @handlePeopleOpen="handlePeopleOpenOrClose"
+    @handleGetPeopleSeat="handleGetPeopleSeat"
   ></MapPage>
   <!-- 战争信息弹框 -->
   <WarPopup
@@ -12,7 +13,7 @@
   <!-- 人物信息弹框 -->
   <PeoplePage
     :jumpPeopleBox="jumpPeopleBox"
-    :PeopleList="PeopleList"
+    :peopleSeat="peopleSeat"
     @handlePeopleClose="handlePeopleOpenOrClose"
   ></PeoplePage>
 </template>
@@ -29,8 +30,8 @@ export default {
     let jumpWarBox = ref(false);
     // 人物信息弹框
     let jumpPeopleBox = ref(false);
-    // 人物信息
-    let PeopleList = ref();
+    // 人物信息框位置
+    let peopleSeat = ref({ x: 200, y: 300 });
 
     // 显示/隐藏战争弹出框
     const handleWarOpenOrClose = (value) => {
@@ -38,18 +39,26 @@ export default {
     };
 
     // 显示/隐藏人物弹出框
-    const handlePeopleOpenOrClose = (value, peopleValue) => {
+    const handlePeopleOpenOrClose = (value) => {
       jumpPeopleBox.value = value;
-      PeopleList.value = peopleValue;
-      // console.log(PeopleList.value);
+    };
+
+    // 获取人物标记页面位置
+    const handleGetPeopleSeat = (value) => {
+      peopleSeat.value = {
+        x: value.x,
+        y: value.y,
+      };
+      // console.log(peopleSeat.value);
     };
 
     return {
       jumpWarBox,
       jumpPeopleBox,
-      PeopleList,
+      peopleSeat,
       handleWarOpenOrClose,
       handlePeopleOpenOrClose,
+      handleGetPeopleSeat,
     };
   },
   components: {

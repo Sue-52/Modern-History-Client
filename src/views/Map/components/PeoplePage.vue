@@ -1,64 +1,48 @@
 <template>
+  <!-- 人物信息框 -->
   <div
-    class="pop-box-mask"
+    class="entry-card-component"
     :class="{ active: jumpPeopleBox }"
-    v-if="PeopleList"
+    ref="targetPeopleDom"
+    :style="{ top: `${peopleSeat.y}px`, left: `${peopleSeat.x}px` }"
   >
-    <div class="pop-content summary" ref="targetPeopleDom">
-      <div class="icon-close-big pop-close" @click="handleClose"></div>
-      <!-- 人物全部信息 -->
-      <div class="summary-box" v-if="peopleNewOrSummary === 'new'">
-        <div class="content-wraper">
-          <section class="entry-base-info">
-            <section class="base-info">
-              <div class="entry-avatar">
-                <img :src="PeopleList.picture" alt="" />
-              </div>
-              <div class="text-info">
-                <div class="entry-name">{{ PeopleList.name }}</div>
-                <div class="entry-desc entryDesc">{{ PeopleList.jianjie }}</div>
-              </div>
-            </section>
-            <ul class="more-info">
-              <li
-                class="link-item linkItem active"
-                title="概述"
-                @click="peopleNewOrSummary = 'summary'"
-              >
-                概述
-              </li>
-              <li class="link-item linkItem" title="关系图谱">关系图谱</li>
-              <li class="link-item linkItem" title="作品">作品</li>
-              <li class="link-item linkItem" title="文章">文章</li>
-            </ul>
-          </section>
-          <section class="entry-nodes">
-            <div class="nodes-list">
-              <div class="node-item nodeItem">
-                <div class="title">{{ PeopleList.birth }}</div>
-                <div class="desc descWrap">{{ PeopleList.shengping }}</div>
-              </div>
-            </div>
-          </section>
+    <!-- 关闭按钮 -->
+    <span class="icon-close iconClose" @click="handleClose"></span>
+    <!-- 上版块 -->
+    <section class="entry-base-info">
+      <!-- 人物简介盒子 -->
+      <section class="base-info">
+        <!-- 人物图片 -->
+        <div class="entry-avatar">
+          <img src="https://s4.ax1x.com/2021/12/28/Trrq2R.jpg" alt="" />
         </div>
-      </div>
-      <!-- 人物简介和生平 -->
-      <div class="summary-box" v-if="peopleNewOrSummary === 'summary'">
-        <div class="content-wraper" style="text-align: center">
-          <div class="content-title">
-            <strong @click="peopleNewOrSummary = 'new'">
-              {{ PeopleList.name }}
-            </strong>
+        <!-- 人物简介 -->
+        <div class="text-info">
+          <div class="entry-name">张学良</div>
+          <div class="entry-desc entryDesc">
+            张学良（1901年6月3日－2001年10月14日），字汉卿，号毅庵，乳名双喜、小六子。汉族，籍贯辽宁省盘锦市大洼县东风镇，生于辽宁省鞍山市台安县桓洞镇鄂家村张家窝堡屯（旧称桑子林詹家窝铺），国民革命军将领，奉系军阀首领张作霖的长子，中国近代著名爱国将领。
           </div>
-          <div class="content-summary">
-            <article class="data-summary">
-              <p>{{ PeopleList.jianjie }}</p>
-              <p>{{ PeopleList.shengping }}</p>
-            </article>
+        </div>
+      </section>
+      <!-- tab切换盒子 -->
+      <ul class="more-info">
+        <li class="link-item linkItem active" title="概述">概述</li>
+        <li class="link-item linkItem" title="关系图谱">关系图谱</li>
+        <li class="link-item linkItem" title="作品">作品</li>
+        <li class="link-item linkItem" title="文章">文章</li>
+      </ul>
+    </section>
+    <!-- 下版块 -->
+    <section class="entry-nodes">
+      <div class="nodes-list">
+        <div class="node-item nodeItem">
+          <div class="title">病逝于檀香山</div>
+          <div class="desc descWrap">
+            1920年毕业于东三省陆军讲武堂，先于奉系军中担任要职，“皇姑屯事件”之后，他继任为东北保安军总司令，拒绝日本人的拉拢，坚持“东北易帜”，为祖国统一和民族团结做出了贡献。后任中华民国陆海空军副司令，陆军一级上将。西安事变后遭蒋介石父子长期软禁。1990年恢复人身自由，1995年起离台侨居美国夏威夷，2001年10月14日病逝于檀香山，享年101岁。
           </div>
         </div>
       </div>
-    </div>
+    </section>
   </div>
 </template>
 
@@ -67,28 +51,23 @@ import { onClickOutside } from "@vueuse/core";
 import { ref } from "vue";
 
 export default {
-  props: ["jumpPeopleBox", "PeopleList"],
+  props: ["jumpPeopleBox", "peopleSeat"],
   setup(props, { emit }) {
     // 弹出框dom
     let targetPeopleDom = ref();
-    // 确定当前打开的是总人物信息还是人物概述
-    let peopleNewOrSummary = ref("new");
 
     // 关闭人物信息框
     const handleClose = () => {
       emit("handlePeopleClose", false);
-      peopleNewOrSummary.value = "new";
     };
 
     // 当点击到目标dom的外面时隐藏
     onClickOutside(targetPeopleDom, () => {
       emit("handlePeopleClose", false);
-      peopleNewOrSummary.value = "new";
     });
 
     return {
       targetPeopleDom,
-      peopleNewOrSummary,
       handleClose,
     };
   },
@@ -96,109 +75,56 @@ export default {
 </script>
 
 <style lang="scss">
-.pop-box-mask {
+.entry-card-component {
   display: none;
-  position: fixed;
-  left: 0;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.6);
-  z-index: 1000;
-  box-sizing: border-box;
+  position: absolute;
+  top: 200px;
+  left: 300px;
+  width: 434px;
+  background: #fff;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.08);
+  border-radius: 2px;
+  z-index: 4;
   font-family: "微软雅黑";
 
-  .pop-content {
+  .icon-close {
     position: absolute;
-    left: 50%;
-    top: 50%;
-    width: 840px;
-    box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.14);
-    background: url(https://static.allhistory.com/online/view/Map/img/tag-unfinished.24c4.svg)
-      no-repeat 0 0 #fff;
-    padding: 16px 25px;
-    margin-left: calc(-840px / 2);
-    margin-top: -180px;
+    right: 12px;
+    top: 12px;
+    height: 24px;
+    width: 24px;
+    background-image: url(https://static.allhistory.com/online/common/img/icon-close.725a.svg);
+    cursor: pointer;
+  }
 
-    .icon-close-big {
-      width: 24px;
-      height: 24px;
-      position: absolute;
-      right: -32px;
-      top: 0;
-      cursor: pointer;
-      background-image: url(https://static.allhistory.com/online/view/Map/img/icon-close-white.29f2.svg);
+  /* 上版块 */
+  .entry-base-info {
+    padding: 16px 16px 0;
+
+    /* 人物简介盒子 */
+    .base-info {
+      display: flex;
+      margin-bottom: 14px;
     }
 
-    .summary-box {
+    /* tab切换盒子 */
+    .more-info {
       display: flex;
-      margin-top: 16px;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      margin-bottom: 12px;
+      margin-left: 98px;
     }
   }
-}
 
-.summary-box {
-  .content-wraper {
-    flex-grow: 1;
-    margin-top: 17px;
-    margin-left: 24px;
+  /* 下版块 */
+  .entry-nodes {
+    padding: 0 16px 16px;
 
-    .entry-base-info {
-      /* 人物简介盒子 */
-      .base-info {
-        display: flex;
-        margin-bottom: 14px;
-      }
-
-      /* tab切换盒子 */
-      .more-info {
-        display: flex;
-        list-style: none;
-        padding: 0;
-        margin: 0;
-        margin-bottom: 12px;
-        margin-left: 98px;
-      }
-    }
-
-    .entry-nodes {
-      padding: 0 16px 16px;
-
-      .nodes-list {
-        border-top: 1px solid #ebebeb;
-        padding-top: 7px;
-      }
-    }
-
-    .content-title {
-      font-size: 24px;
-      color: #333;
-      text-align: 0center;
-      line-height: 24px;
-      position: relative;
-      display: inline-block;
-
-      &::before {
-        height: 1px;
-        width: 100%;
-        padding: 0 50px;
-        box-sizing: content-box;
-        background: #ececec;
-        content: "";
-        position: absolute;
-        left: -50px;
-        right: -50px;
-        top: 12px;
-      }
-
-      strong {
-        cursor: pointer;
-      }
-    }
-
-    .content-summary {
-      margin-top: 24px;
-      text-align: left;
+    .nodes-list {
+      border-top: 1px solid #ebebeb;
+      padding-top: 7px;
     }
   }
 }
@@ -242,7 +168,8 @@ export default {
 
 .more-info {
   .link-item {
-    flex: 1;
+    width: 68px;
+    height: 24px;
     text-align: center;
     border-radius: 2px;
     line-height: 24px;
@@ -284,33 +211,6 @@ export default {
     overflow: hidden;
     text-overflow: ellipsis;
     -webkit-line-clamp: 2;
-  }
-}
-
-.content-title {
-  strong {
-    background: #fff;
-    position: relative;
-    display: block;
-    padding: 0 30px;
-    z-index: 1;
-  }
-}
-
-.content-summary {
-  .data-summary {
-    width: 100%;
-    position: relative;
-    color: #333;
-    max-height: 330px;
-    overflow-x: hidden;
-    overflow-y: auto;
-    line-height: 1.9;
-    font-size: 15px;
-
-    p {
-      margin-bottom: 16px;
-    }
   }
 }
 
