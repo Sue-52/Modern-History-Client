@@ -1,4 +1,4 @@
-name: GitHub Pages
+name: GitHub Actions deploy
 on:
   push:
     branches:
@@ -7,6 +7,9 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [ 14.16.1 ]
     steps:
       # 切换分支
       - name: Checkout
@@ -16,8 +19,9 @@ jobs:
       # npm install
       - name: npm install and build 🔧
         run: |
-          npm install
-          npm run build
+          npm i yarn -g
+          yarn install
+          yarn build
         env:
           CI: true
       # Deploy
