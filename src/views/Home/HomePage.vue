@@ -14,7 +14,9 @@
       <div class="section section2">
         <HomeShowDetail></HomeShowDetail>
       </div>
-      <div class="section section3">3</div>
+      <div class="section section3">
+        <HomeMapDetail></HomeMapDetail>
+      </div>
       <div class="section section4">4</div>
       <div class="section section5">5</div>
       <div class="section section6">6</div>
@@ -24,6 +26,7 @@
   </div>
 </template>
 <script lang="ts" setup>
+import HomeMapDetail from "@/views/Home/components/HomeMapDetail.vue";
 import HomeShowDetail from "@/views/Home/components/HomeShowDetail.vue";
 import HomeFirstPage from "@/views/Home/components/HomeFirstPage.vue";
 import { ref } from "@vue/reactivity";
@@ -100,6 +103,7 @@ const mouseWheelHandle = (event) => {
   width: 100%;
   height: 100%;
   overflow: hidden; //一定要设置，多余的先隐藏
+  zoom: 0.9;
 }
 .full-page {
   width: 100%;
