@@ -92,6 +92,17 @@ const mouseWheelHandle = (event) => {
     prev();
   }
 };
+// 页面重定向
+const resize = () => {
+  let height = mainPage.value.clientHeight;
+  let scrollPage = fullPage.value;
+  let scrollHeight;
+  scrollHeight = -current.value * height + "px";
+  scrollPage.style.transform = "translateY(" + scrollHeight + ")";
+};
+onMounted(() => {
+  window.addEventListener("resize", resize);
+});
 //#endregion
 
 //
@@ -103,7 +114,6 @@ const mouseWheelHandle = (event) => {
   width: 100%;
   height: 100%;
   overflow: hidden; //一定要设置，多余的先隐藏
-  zoom: 0.9;
 }
 .full-page {
   width: 100%;

@@ -121,7 +121,7 @@ const togoleRegister = (val) => {
   // 判断值
   if (val === true) {
     // 添加样式
-    Array.from(oPage.value).forEach((item, index) => {
+    Array.from(oPage.value).forEach((item) => {
       item.classList.remove("current");
     });
     currentPage.style.transform = "perspective(1600px) rotateY(-180deg)";
@@ -156,6 +156,7 @@ const togoleRegister = (val) => {
   overflow: hidden;
   background: url("../../../assets/images/waves.svg") no-repeat 100% 100%;
   background-color: #eee;
+  zoom: 0.9;
 }
 .second-left {
   width: 20%;
