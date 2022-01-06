@@ -13,7 +13,6 @@ body {
   height: 100%;
   font-size: 16px;
   font-family: cursive;
-  zoom: 0.9;
 }
 #app {
   width: 100%;
