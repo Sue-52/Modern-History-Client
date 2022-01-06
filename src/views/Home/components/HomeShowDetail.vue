@@ -19,13 +19,13 @@
       <div id="box">
         <!-- 封面 -->
         <div class="cover">
-          <img src="../../../assets/images/cover.png" alt="" />
+          <img src="../../../assets/images/bgImage.jpg" alt="" />
         </div>
         <!-- /* page有前后两面 */ -->
         <div
           class="page"
-          v-for="(item, index) in 5"
-          :style="{ zIndex: turnPage ? 5 - index : index++ }"
+          v-for="(item, index) in 6"
+          :style="{ zIndex: current > index ? index : 6 - index }"
           :key="item"
         >
           <div class="front" @click="togoleRegister(true)">
@@ -36,14 +36,22 @@
           </div>
         </div>
         <!-- 尾页 -->
-        <div class="backpart"></div>
+        <div class="backpart">
+          <img src="../../../assets/images/cover.jpg" alt="" />
+          <div class="famous">
+            <p>我们要在全社会树立崇尚英雄、缅怀先烈的良好风尚。</p>
+            <p>
+              对为国牺牲、为民牺牲的英雄烈士，我们要永远怀念他们，给予他们极大的荣誉和敬仰，不然谁愿意为国家和人民牺牲呢？
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { computed, onMounted, ref } from "vue";
+import { onMounted, ref } from "vue";
 ("HomeShowDetail");
 // 初始化数据
 const warFight = ref([
@@ -99,28 +107,25 @@ const warFight = ref([
   },
 ]);
 
+//#region 翻页功能
 const current = ref(0);
-const turnPage = ref(true);
 const oBox = ref();
 const oPage = ref();
 onMounted(() => {
   oBox.value = document.getElementById("box");
   oPage.value = document.querySelectorAll(".page");
 });
-//#region 翻页功能
 const togoleRegister = (val) => {
-  // console.log(oPage.value);
   // 获取当前Dom的位置
   let currentPage = oPage.value[current.value];
-
   // 判断值
   if (val === true) {
     // 添加样式
     Array.from(oPage.value).forEach((item, index) => {
       item.classList.remove("current");
-      turnPage.value = true;
     });
     currentPage.style.transform = "perspective(1600px) rotateY(-180deg)";
+    // currentPage.style.boxShadow = "rgb(0 0 0 / 11%) 13px 0px 8px";
     currentPage.classList.add("current");
 
     // 页面递增
@@ -133,12 +138,6 @@ const togoleRegister = (val) => {
     // 添加样式
     currentPage.style.transform = "perspective(1600px) rotateY(0deg)";
     currentPage.classList.remove("current");
-    Array.from(oPage.value).forEach((item, index) => {
-      if (current.value === index) {
-        currentPage.classList.add("current");
-        turnPage.value = false;
-      }
-    });
     // 页面递减
     if (current.value <= 0) {
       current.value = 0;
@@ -155,6 +154,7 @@ const togoleRegister = (val) => {
   width: 100%;
   height: 100%;
   overflow: hidden;
+  background: url("../../../assets/images/waves.svg") no-repeat 100% 100%;
   background-color: #eee;
 }
 .second-left {
@@ -264,6 +264,10 @@ const togoleRegister = (val) => {
     /* 设置景深来更好的展示3D效果，并给旋转角度一个初始值，防止抖动发生 */
     transform: perspective(1600px);
     display: flex;
+    z-index: 2;
+    box-sizing: border-box;
+    border-radius: 10px;
+    box-shadow: rgb(150 25 0 / 11%) 13px 0px 8px;
 
     .front,
     .back {
@@ -279,7 +283,7 @@ const togoleRegister = (val) => {
       backface-visibility: hidden;
       /* 提升层级否则会被盖住 */
       z-index: 1;
-      background-color: forestgreen;
+      background: url("../../../assets/images/theme_bg.png");
     }
 
     // 旋转后页
@@ -288,7 +292,7 @@ const togoleRegister = (val) => {
       transform: scale(-1, 1);
       /* 改变层级避免盖住其他页面 */
       z-index: 0;
-      background-color: lightblue;
+      background: url("../../../assets/images/theme_bg.png");
     }
   }
   .page.current {
@@ -313,6 +317,22 @@ const togoleRegister = (val) => {
   right: 0;
   top: 0;
   z-index: 0;
-  background-color: #ca262d;
+  > img {
+    width: 100%;
+    height: 100%;
+  }
+  .famous {
+    position: absolute;
+    width: 80%;
+    height: auto;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -100%);
+    z-index: 20;
+    font-size: 28px;
+    color: gold;
+    text-align: center;
+    font-family: cursive;
+  }
 }
 </style>
