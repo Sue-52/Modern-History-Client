@@ -34,8 +34,8 @@ import { onMounted } from "@vue/runtime-core";
 //#region 全屏滚动效果
 const current = ref(0);
 const isScrolling = ref(false);
-const mainPage = ref(null);
-const fullPage = ref(null);
+const mainPage = ref();
+const fullPage = ref();
 const deltaY = ref(0);
 
 // next()
@@ -92,6 +92,17 @@ const mouseWheelHandle = (event) => {
     prev();
   }
 };
+// 页面重定向
+const resize = () => {
+  let height = mainPage.value.clientHeight;
+  let scrollPage = fullPage.value;
+  let scrollHeight;
+  scrollHeight = -current.value * height + "px";
+  scrollPage.style.transform = "translateY(" + scrollHeight + ")";
+};
+onMounted(() => {
+  window.addEventListener("resize", resize);
+});
 //#endregion
 
 //
@@ -103,7 +114,6 @@ const mouseWheelHandle = (event) => {
   width: 100%;
   height: 100%;
   overflow: hidden; //一定要设置，多余的先隐藏
-  zoom: 0.9;
 }
 .full-page {
   width: 100%;
@@ -123,7 +133,8 @@ const mouseWheelHandle = (event) => {
     background-color: #fff;
   }
   .section3 {
-    background-color: lightblue;
+    background-color: #a2dbff;
+    position: relative;
   }
   .section4 {
     background-color: gold;
