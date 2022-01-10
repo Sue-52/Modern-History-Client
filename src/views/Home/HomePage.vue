@@ -34,8 +34,8 @@ import { onMounted } from "@vue/runtime-core";
 //#region 全屏滚动效果
 const current = ref(0);
 const isScrolling = ref(false);
-const mainPage = ref(null);
-const fullPage = ref(null);
+const mainPage = ref();
+const fullPage = ref();
 const deltaY = ref(0);
 
 // next()
@@ -133,7 +133,8 @@ onMounted(() => {
     background-color: #fff;
   }
   .section3 {
-    background-color: lightblue;
+    background-color: #a2dbff;
+    position: relative;
   }
   .section4 {
     background-color: gold;
