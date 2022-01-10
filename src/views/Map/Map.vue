@@ -26,7 +26,7 @@ import { ref } from "vue";
 export default {
   setup() {
     // 战争信息弹框
-    let jumpWarBox = ref(false);
+    let jumpWarBox = ref();
     // 人物信息弹框
     let jumpPeopleBox = ref(false);
     // 人物信息
@@ -34,6 +34,7 @@ export default {
 
     // 显示/隐藏战争弹出框
     const handleWarOpenOrClose = (value) => {
+      // console.log(value);
       jumpWarBox.value = value;
     };
 
