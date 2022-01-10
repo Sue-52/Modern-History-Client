@@ -1,5 +1,10 @@
 <template>
-  <div class="right-info" :class="{ active: jumpWarBox }" ref="targetWarDom">
+  <div
+    v-if="jumpWarBox"
+    class="right-info"
+    :class="{ active: jumpWarBox.open }"
+    ref="targetWarDom"
+  >
     <div class="territory-info-container">
       <div class="territory-component">
         <div class="territory-box">
@@ -7,18 +12,17 @@
           <div class="territory-wrap">
             <div class="base-info">
               <div class="title">
-                <b>九·一八事变</b>
+                <b>{{ jumpWarBox.warName }}</b>
               </div>
               <div class="desc-box">
-                <div class="territoryDesc">
-                  <p>
-                    <b>九·一八事变</b>
-                    ，又称奉天事变、柳条湖事件。是1931年9月18日日本驻中国东北地区的关东军突然袭击沈阳，以武力侵占东北的事件。九·一八事变是由日本蓄意制造并发动的侵华战争，是日本帝国主义企图以武力征服中国的开端，是中国抗日战争的起点，标志着中国局部抗战的开始，揭开了第二次世界大战东方战场的序幕。九一八事变后，中国人民的局部抗战也标志着世界反法西斯战争的起点。
-                  </p>
-                  <p>
-                    1931年9月18日夜，盘踞在中国东北的日本关东军按照精心策划的阴谋，由铁道“守备队”炸毁沈阳柳条湖附近日本修筑的南满铁路路轨，并嫁祸于中国军队，日军以此为借口，炮轰中国东北军北大营，制造了震惊中外的“九一八事变”。次日，日军侵占沈阳，又陆续侵占了东北三省。1932年2月，东北全境沦陷。此后，日本在中国东北建立了伪满洲国傀儡政权，开始了对东北人民长达14年之久的奴役和殖民统治，使东北3000多万同胞饱受亡国奴的痛苦滋味。
-                  </p>
-                </div>
+                <mavon-editor
+                  v-model="warDetail"
+                  :subfield="false"
+                  :defaultOpen="'preview'"
+                  :toolbarsFlag="false"
+                  :editable="false"
+                  :ishljs="true"
+                />
               </div>
             </div>
           </div>
@@ -30,26 +34,47 @@
 
 <script>
 import { onClickOutside } from "@vueuse/core";
-import { ref } from "vue";
+import { ref, watch } from "vue";
 
 export default {
-  props: ["jumpWarBox", "modelValue"],
+  props: {
+    jumpWarBox: {
+      type: Object,
+      default: function () {
+        return {};
+      },
+    },
+  },
   setup(props, { emit }) {
     // 弹出框dom
     let targetWarDom = ref();
+    let warDetail = ref("");
+
+    // 监听props的变化，改变战争详情
+    watch(props, (update) => {
+      // console.log(update.jumpWarBox);
+      if (update.jumpWarBox.warIntroduce) {
+        warDetail.value = update.jumpWarBox.warIntroduce;
+      }
+    });
+
+    let obj = {
+      open: false,
+    };
 
     const handleClose = () => {
-      emit("handleWarClose", false);
+      emit("handleWarClose", obj);
     };
 
     // 当点击到目标dom的外面时隐藏
     onClickOutside(targetWarDom, () => {
-      emit("handleWarClose", false);
+      emit("handleWarClose", obj);
     });
 
     return {
       targetWarDom,
       handleClose,
+      warDetail,
     };
   },
 };
@@ -62,8 +87,10 @@ export default {
   position: absolute;
   right: 8px;
   top: 66px;
-  width: 320px;
+  width: 340px;
   z-index: 11;
+  font-family: "微软雅黑";
+  cursor: default;
 
   .territory-component {
     position: relative;
@@ -104,6 +131,7 @@ export default {
       margin: 9px 16px 0 24px;
       flex: 1;
       overflow: auto;
+      box-sizing: border-box;
     }
 
     .desc-box::-webkit-scrollbar {
@@ -128,6 +156,19 @@ export default {
   font-size: 14px;
   height: 100%;
   color: #666;
+}
+
+.scroll-style-border-radius,
+.scroll-style-border-radius pre {
+  padding: 0 !important;
+}
+
+.markdown-body {
+  height: 100% !important;
+}
+
+.markdown-body p {
+  font-size: 13px;
 }
 
 .active {
