@@ -197,8 +197,23 @@ export default {
     }
 
     .content-summary {
+      height: 243px;
+      overflow: auto;
       margin-top: 24px;
       text-align: left;
+    }
+
+    .content-summary::-webkit-scrollbar {
+      width: 6px;
+      background-color: #f5f5f5;
+    }
+
+    .content-summary::-webkit-scrollbar-thumb {
+      background-color: #ccc;
+    }
+
+    .content-summary::-webkit-scrollbar-track {
+      background-color: #f5f5f5;
     }
   }
 }
@@ -303,8 +318,6 @@ export default {
     position: relative;
     color: #333;
     max-height: 330px;
-    overflow-x: hidden;
-    overflow-y: auto;
     line-height: 1.9;
     font-size: 15px;
 
