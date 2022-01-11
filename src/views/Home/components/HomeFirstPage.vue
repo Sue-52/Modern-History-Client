@@ -151,6 +151,7 @@ const handleClike = (step) => {
   opacity: 0;
   transition: opacity 0.5s linear;
   display: flex;
+  zoom: 0.9;
 
   &.fade {
     opacity: 1;

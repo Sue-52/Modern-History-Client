@@ -2,7 +2,6 @@ import { createRouter, createWebHashHistory, RouteRecordRaw } from "vue-router";
 const Home = () =>
   import(/*webpackChunkName: 'Home'*/ "@/views/Home/HomePage.vue");
 import Map from "@/views/Map/Map.vue";
-import Test from "@/Demo/TestPage.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -18,11 +17,6 @@ const routes: Array<RouteRecordRaw> = [
     path: "/map",
     name: "Map",
     component: Map,
-  },
-  {
-    path: "/test",
-    name: "Test",
-    component: Test,
   },
 ];
 
