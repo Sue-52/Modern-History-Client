@@ -1,11 +1,7 @@
 <template>
   <div class="time_axis">
     <!-- 3D切换 -->
-    <div
-      class="swiper"
-      id="swiper3D"
-      style="width: 50px; height: 50px; overflow: visible"
-    >
+    <div class="swiper" id="swiper3D">
       <div class="swiper-wrapper">
         <div class="swiper-slide">1931</div>
         <div class="swiper-slide">1932</div>
@@ -64,7 +60,7 @@ import "swiper/swiper-bundle.min.css";
 import "swiper/swiper-bundle.min.js";
 
 export default {
-  name: "MySwiper",
+  name: "TimeAxis",
   mounted() {
     new SwiperCore("#swiper3D", {
       modules: [EffectCube, Thumbs],
@@ -96,9 +92,18 @@ export default {
   position: fixed;
   bottom: 0;
   width: 100%;
+  z-index: 999;
+}
+
+.swiper {
+  cursor: default;
 }
 
 #swiper3D {
+  width: 50px;
+  height: 50px;
+  overflow: visible;
+
   .swiper-wrapper {
     position: absolute;
 
@@ -113,13 +118,14 @@ export default {
 }
 
 #swiperThumbs {
-  margin-top: 30px;
-  line-height: 100px;
+  margin-top: 24px;
+  line-height: 60px;
+  background-color: rgb(105, 53, 53);
 
   .swiper-wrapper {
     .swiper-slide {
       font-weight: 700;
-      font-size: 50px;
+      font-size: 30px;
       text-align: center;
       opacity: 0.4;
 
