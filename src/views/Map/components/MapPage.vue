@@ -173,7 +173,7 @@ export default {
 }
 
 .BMap_scaleCtrl {
-  bottom: 6px !important;
+  bottom: 66px !important;
   left: 6px !important;
 }
 
