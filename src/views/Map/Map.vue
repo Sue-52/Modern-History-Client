@@ -1,6 +1,8 @@
 <template>
   <!-- 地图 -->
   <MapPage
+    :key="warYear"
+    :warYear="warYear"
     @handleWarOpen="handleWarOpenOrClose"
     @handlePeopleOpen="handlePeopleOpenOrClose"
   ></MapPage>
@@ -19,7 +21,8 @@
   ></PeoplePage>
 
   <!-- 时间轴 -->
-  <TimeAxis></TimeAxis>
+  <TimeAxis @handleTimeAxis="handleTimeAxis"></TimeAxis>
+
 </template>
 
 <script lang="ts">
@@ -37,6 +40,8 @@ export default {
     let jumpPeopleBox = ref(false);
     // 人物信息
     let PeopleList = ref();
+    // 战争年份
+    let warYear = ref(1931);
 
     // 显示/隐藏战争弹出框
     const handleWarOpenOrClose = (value) => {
@@ -51,12 +56,19 @@ export default {
       // console.log(PeopleList.value);
     };
 
+    // 实时时间轴时间
+    const handleTimeAxis = (year) => {
+      warYear.value = Number(year);
+    };
+
     return {
       jumpWarBox,
       jumpPeopleBox,
       PeopleList,
+      warYear,
       handleWarOpenOrClose,
       handlePeopleOpenOrClose,
+      handleTimeAxis,
     };
   },
   components: {

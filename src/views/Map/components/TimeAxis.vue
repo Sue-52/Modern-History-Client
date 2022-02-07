@@ -3,51 +3,22 @@
     <!-- 3D切换 -->
     <div class="swiper" id="swiper3D">
       <div class="swiper-wrapper">
-        <div class="swiper-slide">1931</div>
-        <div class="swiper-slide">1932</div>
-        <div class="swiper-slide">1937</div>
-        <div class="swiper-slide">1938</div>
-        <div class="swiper-slide">1939</div>
-        <div class="swiper-slide">1940</div>
-        <div class="swiper-slide">1941</div>
-        <div class="swiper-slide">1942</div>
-        <div class="swiper-slide">1943</div>
-        <div class="swiper-slide">1945</div>
+        <div class="swiper-slide" v-for="item in timeArr" :key="item">
+          {{ item }}
+        </div>
       </div>
     </div>
 
     <!-- 缩略图 -->
     <div class="swiper" id="swiperThumbs">
       <div class="swiper-wrapper">
-        <div class="swiper-slide">
-          <span>1931</span>
-        </div>
-        <div class="swiper-slide">
-          <span>1932</span>
-        </div>
-        <div class="swiper-slide">
-          <span>1937</span>
-        </div>
-        <div class="swiper-slide">
-          <span>1938</span>
-        </div>
-        <div class="swiper-slide">
-          <span>1939</span>
-        </div>
-        <div class="swiper-slide">
-          <span>1940</span>
-        </div>
-        <div class="swiper-slide">
-          <span>1941</span>
-        </div>
-        <div class="swiper-slide">
-          <span>1942</span>
-        </div>
-        <div class="swiper-slide">
-          <span>1943</span>
-        </div>
-        <div class="swiper-slide">
-          <span>1945</span>
+        <div
+          class="swiper-slide"
+          v-for="item in timeArr"
+          :key="item"
+          @click="handleNowYear(item)"
+        >
+          <span>{{ item }}</span>
         </div>
       </div>
     </div>
@@ -58,31 +29,62 @@
 import SwiperCore, { EffectCube, Thumbs } from "swiper";
 import "swiper/swiper-bundle.min.css";
 import "swiper/swiper-bundle.min.js";
+import { onMounted } from "vue";
 
 export default {
   name: "TimeAxis",
-  mounted() {
-    new SwiperCore("#swiper3D", {
-      modules: [EffectCube, Thumbs],
-      effect: "cube",
-      observer: true,
-      cubeEffect: {
-        shadow: true,
-        slideShadows: true,
-        shadowOffset: 20,
-        shadowScale: 0.54,
-      },
-      thumbs: {
-        swiper: {
-          el: "#swiperThumbs",
-          // 两个slide之间的距离
-          spaceBetween: 10,
-          // 展示数量
-          slidesPerView: 6,
-          watchSlidesVisibility: true /*避免出现bug*/,
+  setup(props, { emit }) {
+    // 时间轴死数据
+    let timeArr = [1931, 1932, 1937, 1938, 1939, 1940, 1941, 1942, 1943];
+    // 时间轴轮播图
+    onMounted(() => {
+      new SwiperCore("#swiper3D", {
+        modules: [EffectCube, Thumbs],
+        effect: "cube",
+        observer: true,
+        on: {
+          touchEnd: function (swiper) {
+            // 当年份为1931是保存数据的长度
+            let timeLength = 12;
+            let nowtimeStr = swiper.$el[0].innerText.replaceAll("\n", "");
+            let ThreeYear = nowtimeStr.substr(4, 4);
+
+            if (nowtimeStr.length === timeLength) {
+              ThreeYear = 1931;
+            }
+
+            emit("handleTimeAxis", ThreeYear);
+          },
         },
-      },
+        // 3D旋转阴影样式设置
+        cubeEffect: {
+          shadow: true,
+          slideShadows: true,
+          shadowOffset: 20,
+          shadowScale: 0.54,
+        },
+        thumbs: {
+          swiper: {
+            el: "#swiperThumbs",
+            // 两个slide之间的距离
+            spaceBetween: 10,
+            // 展示数量
+            slidesPerView: 6,
+            watchSlidesVisibility: true /*避免出现bug*/,
+          },
+        },
+      });
     });
+
+    // 获取当前选中的年份
+    const handleNowYear = (ThreeYear) => {
+      emit("handleTimeAxis", ThreeYear);
+    };
+
+    return {
+      timeArr,
+      handleNowYear,
+    };
   },
 };
 </script>
