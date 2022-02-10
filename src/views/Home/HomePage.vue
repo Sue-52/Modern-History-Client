@@ -17,7 +17,9 @@
       <div class="section section3">
         <HomeMapDetail></HomeMapDetail>
       </div>
-      <div class="section section4">4</div>
+      <div class="section section4">
+        <HomeShowCollection></HomeShowCollection>
+      </div>
       <div class="section section5">5</div>
       <div class="section section6">6</div>
     </div>
@@ -29,6 +31,7 @@
 import HomeMapDetail from "@/views/Home/components/HomeMapDetail.vue";
 import HomeShowDetail from "@/views/Home/components/HomeShowDetail.vue";
 import HomeFirstPage from "@/views/Home/components/HomeFirstPage.vue";
+import HomeShowCollection from "@/views/Home/components/HomeShowCollection.vue";
 import { ref } from "@vue/reactivity";
 import { onMounted } from "@vue/runtime-core";
 //#region 全屏滚动效果
@@ -135,6 +138,7 @@ onMounted(() => {
   .section3 {
     background-color: #a2dbff;
     position: relative;
+    overflow: hidden;
   }
   .section4 {
     background-color: gold;
