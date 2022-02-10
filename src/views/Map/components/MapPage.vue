@@ -12,12 +12,16 @@ import useRandomCustom from "@/hooks/useRandomCustom";
 import { getWarData } from "@/api/map";
 import { onMounted } from "vue";
 import { ref } from "@vue/reactivity";
-// import { createGlobalState } from "@vueuse/core";
 
 export default {
+  props: {
+    warYear: {
+      type: Number,
+    },
+  },
   setup(props, { emit }) {
     let getNowZoom = ref(5);
-    // 战争人物信息
+    console.log(props.warYear);
 
     onMounted(async () => {
       // 创建地图实例
@@ -40,7 +44,9 @@ export default {
       map.addControl(new BMap.ScaleControl());
 
       // 获取战争详情数据
-      let { data: allWarData } = await getWarData(1937);
+      let { data: allWarData } = await getWarData(props.warYear);
+      // console.log(allWarData);
+
       // 存放战争标记信息
       let warSquareArr = [];
       // 循环遍历添加一个或多个战争标记
@@ -158,6 +164,12 @@ export default {
         }
       });
     });
+
+    // watch(props, (update) => {
+    //   // console.log(update.warYear);
+    //   warTime.value = update.warYear;
+    //   console.log(warTime.value);
+    // });
   },
 };
 </script>
@@ -173,7 +185,7 @@ export default {
 }
 
 .BMap_scaleCtrl {
-  bottom: 6px !important;
+  bottom: 66px !important;
   left: 6px !important;
 }
 
