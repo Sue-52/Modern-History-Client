@@ -1,5 +1,9 @@
 <template>
   <div id="echarts" style="width: 100%; height: 100%"></div>
+  <div class="home-to-map">
+    <p>想知道更多相关的信息吗？</p>
+    <router-link to="/map"> 跳转到详细地图 ——> </router-link>
+  </div>
 </template>
 
 <script>
@@ -21,7 +25,7 @@ export default {
       layoutCenter: ["50%", "43%"],
       // 无需手动添加style样式，官方自带百分比属性
       layoutSize: 100,
-      zoom: 1,
+      // zoom: 1,
       // 地图样式
       itemStyle: {
         // areaColor: "red",
@@ -123,7 +127,8 @@ export default {
         ],
         xAxis: {
           type: "value",
-          name: "经度",
+          name: "",
+          show: false,
           min: -180,
           max: 180,
           nameGap: 25,
@@ -138,12 +143,13 @@ export default {
             },
           },
           axisLabel: {
-            formatter: "{value} 度",
+            formatter: "{value}",
           },
         },
         yAxis: {
           type: "value",
-          name: "纬度",
+          name: "",
+          show: false,
           min: -90,
           max: 90,
           nameTextStyle: {
@@ -157,7 +163,7 @@ export default {
             },
           },
           axisLabel: {
-            formatter: "{value} 度",
+            formatter: "{value}",
           },
         },
         series: [
@@ -181,46 +187,62 @@ export default {
         { name: "伤亡人数", index: 2, text: "伤亡人数", unit: "左右" },
         { name: "事件名", index: 3, text: "战争名称", unit: "" },
       ];
-      function getData() {
-        for (var n = 0; n < wars.timeline.length; n++) {
-          option.timeline.data.push(wars.timeline[n]);
-          option.options.push({
-            title: {
-              show: true,
-              text: wars.timeline[n] + "",
+      for (var n = 0; n < wars.timeline.length; n++) {
+        option.timeline.data.push(wars.timeline[n]);
+        option.options.push({
+          title: {
+            show: true,
+            text: wars.timeline[n] + "",
+          },
+          series: {
+            name: wars.timeline[n],
+            type: "scatter",
+            itemStyle: itemStyle,
+            data: wars.series[n],
+            symbolSize: function (val) {
+              return sizeFunction(val[2]);
             },
-            series: {
-              name: wars.timeline[n],
-              type: "scatter",
-              itemStyle: itemStyle,
-              data: wars.series[n],
-              symbolSize: function (val) {
-                return sizeFunction(val[2]);
-              },
-            },
-          });
-        }
+          },
+        });
       }
-      getData();
       myChart.setOption(option, true);
-      myChart.on("scroll", function (params) {
-        console.log(params);
-      });
-      window.addEventListener("resize", function () {
-        myChart.resize();
-      });
     });
   },
 };
 </script>
 
 <style lang="scss" scoped>
-// h1 {
-//   padding: 0;
-//   margin: 0;
-//   position: absolute;
-//   top: 5%;
-//   left: 50%;
-//   transform: translate(-50%);
-// }
+#echarts {
+  width: 100%;
+  height: 100%;
+}
+.home-to-map {
+  position: absolute;
+  right: 8%;
+  bottom: 5%;
+  width: 15%;
+  height: 10%;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  flex-wrap: wrap;
+  flex-direction: column;
+  text-align: center;
+  grid-area: more;
+  border: 1px solid #666;
+  box-sizing: border-box;
+  border-radius: 30px;
+  background-color: #eeeeee;
+
+  > p {
+    font-size: 20px;
+    font-weight: 900;
+  }
+  > a {
+    font-size: 18px;
+    font-weight: 100;
+    text-decoration: none;
+    color: #666;
+  }
+}
 </style>
