@@ -23,6 +23,7 @@
       <div class="section section5">
         <HomeShowPerson></HomeShowPerson>
       </div>
+
       <div class="section section6">6</div>
     </div>
     <div class="ico_down" v-if="current <= 4" @click="next"></div>
@@ -35,6 +36,7 @@ import HomeShowDetail from "@/views/Home/components/HomeShowDetail.vue";
 import HomeFirstPage from "@/views/Home/components/HomeFirstPage.vue";
 import HomeShowCollection from "@/views/Home/components/HomeShowCollection.vue";
 import HomeShowPerson from "@/views/Home/components/HomeShowPerson.vue";
+
 import { ref } from "@vue/reactivity";
 import { onMounted } from "@vue/runtime-core";
 //#region 全屏滚动效果
