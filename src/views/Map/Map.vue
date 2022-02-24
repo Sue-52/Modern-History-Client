@@ -22,7 +22,6 @@
 
   <!-- 时间轴 -->
   <TimeAxis @handleTimeAxis="handleTimeAxis"></TimeAxis>
-
 </template>
 
 <script lang="ts">
