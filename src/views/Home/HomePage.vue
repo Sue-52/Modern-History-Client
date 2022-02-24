@@ -20,7 +20,10 @@
       <div class="section section4">
         <HomeShowCollection></HomeShowCollection>
       </div>
-      <div class="section section5">5</div>
+      <div class="section section5">
+        <HomeShowPerson></HomeShowPerson>
+      </div>
+
       <div class="section section6">6</div>
     </div>
     <div class="ico_down" v-if="current <= 4" @click="next"></div>
@@ -32,6 +35,8 @@ import HomeMapDetail from "@/views/Home/components/HomeMapDetail.vue";
 import HomeShowDetail from "@/views/Home/components/HomeShowDetail.vue";
 import HomeFirstPage from "@/views/Home/components/HomeFirstPage.vue";
 import HomeShowCollection from "@/views/Home/components/HomeShowCollection.vue";
+import HomeShowPerson from "@/views/Home/components/HomeShowPerson.vue";
+
 import { ref } from "@vue/reactivity";
 import { onMounted } from "@vue/runtime-core";
 //#region 全屏滚动效果
@@ -144,7 +149,7 @@ onMounted(() => {
     background-color: gold;
   }
   .section5 {
-    background-color: lightgreen;
+    background-color: #000;
   }
   .section6 {
     background-color: wheat;
