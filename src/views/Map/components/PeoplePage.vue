@@ -46,7 +46,7 @@
       <div class="summary-box" v-if="peopleNewOrSummary === 'summary'">
         <div class="content-wraper" style="text-align: center">
           <div class="content-title">
-            <strong @click="peopleNewOrSummary = 'new'">
+            <strong @click="peopleNewOrSummary = 'new'" title="人物简介">
               {{ PeopleList.name }}
             </strong>
           </div>

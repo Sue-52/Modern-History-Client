@@ -111,9 +111,8 @@ const resize = () => {
 onMounted(() => {
   window.addEventListener("resize", resize);
 });
-//#endregion
 
-//
+//#endregion
 </script>
 
 <style lang="scss">

@@ -21,7 +21,7 @@ export default {
   },
   setup(props, { emit }) {
     let getNowZoom = ref(5);
-    console.log(props.warYear);
+    // console.log(props.warYear);
 
     onMounted(async () => {
       // 创建地图实例
