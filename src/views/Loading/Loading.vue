@@ -25,6 +25,7 @@ export default {
   width: 100%;
   height: 100%;
   background-color: #2c3e50;
+  z-index: 1;
 
   .spinner {
     width: 50px;
