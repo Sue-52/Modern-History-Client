@@ -1,11 +1,15 @@
 <template>
-  <div></div>
+  <div>
+    <video src="./11.mp4" controls width="800" height="600" preload></video>
+  </div>
 </template>
 
 <script>
 export default {
   setup() {
-    return;
+    return {
+      // src: require("@/Demo/11.avi"),
+    };
   },
 };
 </script>

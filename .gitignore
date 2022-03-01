@@ -2,7 +2,8 @@
 node_modules
 /dist
 
-
+*.mp4
+*.avi
 # local env files
 .env.local
 .env.*.local

@@ -1,10 +1,10 @@
 <template>
   <router-view />
-  <!-- <ThreeJsTest></ThreeJsTest> -->
 </template>
 
-<script lang="ts" setup></script>
-import ThreeJsTest from './Demo/ThreeJsTest.vue'
+<script>
+export default {};
+</script>
 
 <style lang="scss">
 html,
