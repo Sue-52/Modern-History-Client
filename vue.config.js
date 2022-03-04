@@ -1,4 +1,5 @@
-// console.log(process.env);
+const webpack = require("webpack");
+
 module.exports = {
   publicPath: "./",
   configureWebpack: {
@@ -30,13 +31,22 @@ module.exports = {
       .options({
         raw: true,
       });
+
+    config.plugin("provide").use(webpack.ProvidePlugin, [
+      {
+        $: "jquery",
+        jquery: "jquery",
+        jQuery: "jquery",
+        "window.jQuery": "jquery",
+      },
+    ]);
   },
   devServer: {
     proxy: {
       "/api": {
         target:
           process.env.BABEL_ENV === "development"
-            ? "http://47.108.197.220:3010/"
+            ? "http://120.27.136.149:3010/"
             : "",
         changeOrigin: true, //是否跨域
         ws: true, //是否代理 websockets

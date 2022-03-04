@@ -9,7 +9,7 @@ import router from "./router";
 import store from "./store";
 // 引入自适应代码
 // import "./plugins/flexible.js";
-
+import "@/util/turn";
 const app = createApp(App);
 
 // 引入组件

@@ -11,7 +11,7 @@
         <HomeFirstPage></HomeFirstPage>
       </div>
       <!-- 第二页 -->
-      <div class="section section2">
+      <div class="section section2" style="zoom: 1 !important">
         <HomeShowDetail></HomeShowDetail>
       </div>
       <div class="section section3">
@@ -30,6 +30,7 @@
     <div class="ico_Up" v-if="current >= 1" @click="prev"></div>
   </div>
 </template>
+
 <script lang="ts" setup>
 import HomeMapDetail from "@/views/Home/components/HomeMapDetail.vue";
 import HomeShowDetail from "@/views/Home/components/HomeShowDetail.vue";
@@ -111,9 +112,8 @@ const resize = () => {
 onMounted(() => {
   window.addEventListener("resize", resize);
 });
-//#endregion
 
-//
+//#endregion
 </script>
 
 <style lang="scss">
@@ -144,6 +144,7 @@ onMounted(() => {
     background-color: #a2dbff;
     position: relative;
     overflow: hidden;
+    zoom: 0.8;
   }
   .section4 {
     background-color: gold;

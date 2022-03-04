@@ -12,7 +12,12 @@
           <div class="territory-wrap">
             <div class="base-info">
               <div class="title">
-                <b>{{ jumpWarBox.warName }}</b>
+                <b
+                  title="观看纪录片"
+                  @click="handleGoVideo(jumpWarBox.warName)"
+                >
+                  {{ jumpWarBox.warName }}
+                </b>
               </div>
               <div class="desc-box">
                 <mavon-editor
@@ -35,6 +40,7 @@
 <script>
 import { onClickOutside } from "@vueuse/core";
 import { ref, watch } from "vue";
+import { useRouter } from "vue-router";
 
 export default {
   props: {
@@ -46,6 +52,7 @@ export default {
     },
   },
   setup(props, { emit }) {
+    let router = useRouter();
     // 弹出框dom
     let targetWarDom = ref();
     let warDetail = ref("");
@@ -71,10 +78,22 @@ export default {
       emit("handleWarClose", obj);
     });
 
+    // 点击跳转到视频页
+    const handleGoVideo = (warName) => {
+      // 需要数据  视频标题，视频链接
+      router.push({
+        path: "/video",
+        query: {
+          title: warName,
+        },
+      });
+    };
+
     return {
       targetWarDom,
       handleClose,
       warDetail,
+      handleGoVideo,
     };
   },
 };
@@ -124,6 +143,10 @@ export default {
       font-weight: 700;
       margin: 0 24px;
       border-bottom: 1px solid hsla(0, 0%, 59.2%, 0.22);
+
+      b {
+        cursor: pointer;
+      }
     }
 
     .desc-box {
