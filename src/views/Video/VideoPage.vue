@@ -26,12 +26,12 @@
             <li
               class="select-item"
               :class="item.selected ? 'selected' : ''"
-              v-for="item in videoData"
+              v-for="(item, index) in videoData"
               :key="item.id"
               @click="handleChangeAnthology(item)"
             >
               <div class="select-title">
-                <span>{{ item.setNumber }}</span>
+                <span>{{ "0" + (index + 1) }}</span>
                 <a href="javascript:;">{{ item.name }}</a>
               </div>
               <i :class="item.selected ? 'playon-icon' : ''"></i>
@@ -61,6 +61,7 @@ import { ref } from "vue";
 import jsVideo from "./components/jsVideo.vue";
 import { useRoute } from "vue-router";
 import Loading from "@/views/Loading/Loading.vue";
+import { getVideo } from "@/api/video.js";
 
 export default {
   setup() {
@@ -72,47 +73,23 @@ export default {
     // 播放器盒子扩展
     let videoExtend = ref(false);
     // 视频url
-    let videoUrl = ref(
-      "中国网络电视台-《国家记忆》 20210913 铭记九一八 蓄谋已久[超清版]"
-    );
+    let videoUrl = ref("");
     // 九一八事变纪录片静态数据
-    let videoData = ref([
-      {
-        id: 1,
-        setNumber: "01",
-        name: "铭记九一八 蓄谋已久",
-        url: "中国网络电视台-《国家记忆》 20210913 铭记九一八 蓄谋已久[超清版]",
-        selected: true,
-      },
-      {
-        id: 2,
-        setNumber: "02",
-        name: "铭记九一八 滔天罪行",
-        url: "中国网络电视台-《国家记忆》 20210914 铭记九一八 滔天罪行[超清版]",
-        selected: false,
-      },
-      {
-        id: 3,
-        setNumber: "03",
-        name: "铭记九一八 中流砥柱",
-        url: "中国网络电视台-《国家记忆》 20210915 铭记九一八 中流砥柱[超清版]",
-        selected: false,
-      },
-      {
-        id: 4,
-        setNumber: "04",
-        name: "铭记九一八 众志成城",
-        url: "中国网络电视台-《国家记忆》 20210916 铭记九一八 众志成城[超清版]",
-        selected: false,
-      },
-      {
-        id: 5,
-        setNumber: "05",
-        name: "铭记九一八 并肩战斗",
-        url: "中国网络电视台-《国家记忆》 20210917 铭记九一八 并肩战斗[超清版]",
-        selected: false,
-      },
-    ]);
+    let videoData = ref([]);
+
+    // 获取纪录片数据
+    getVideo().then((res) => {
+      videoData.value = res.data;
+      videoData.value.forEach((item) => {
+        if (item.id === 1) {
+          item.selected = true;
+          videoUrl.value = item.url;
+        } else {
+          item.selected = false;
+        }
+      });
+      console.log(videoData.value);
+    });
 
     // loading加载中
     setTimeout(() => {
@@ -135,6 +112,7 @@ export default {
     const handleChangeAnthology = (item) => {
       // 存放视频url
       videoUrl.value = item.url;
+      console.log(videoUrl.value);
 
       // 选集选中
       videoData.value.forEach((ele) => {
@@ -169,6 +147,7 @@ html {
   background: #494a5f;
   background-size: cover;
   height: 100%;
+  font-size: 62.5%;
 }
 
 body,
@@ -185,12 +164,13 @@ body,
 }
 
 .warVideo {
-  width: 1066px;
+  width: 70%;
   height: 100%;
 
   .wrapper {
     position: absolute;
     top: 50%;
+    width: 70%;
     background-color: #222328;
     border-radius: 4px;
     transform: translate(0, -50%);
@@ -198,9 +178,8 @@ body,
     .js-video {
       position: relative;
       display: inline-block;
-      width: 800px;
-      height: 454px;
-      padding: 10px;
+      width: 75%;
+      padding: 1rem;
       box-sizing: border-box;
 
       .button {
@@ -237,19 +216,16 @@ body,
 
     /* 播放器盒子扩展 */
     .js-video-extend {
-      width: 1060px;
-      height: 600px;
+      width: 100%;
       transition: all 0.3s;
     }
 
     .anthology {
       float: right;
-      width: 260px;
-      height: 462px;
-      padding: 10px;
+      width: 25%;
+      padding: 1rem;
       padding-top: 0;
       box-sizing: border-box;
-      display: block;
 
       /* 标题 */
       .title_box {
@@ -257,7 +233,7 @@ body,
           h2 {
             span {
               font-weight: 400;
-              font-size: 20px;
+              font-size: 1.4vw;
               color: hsla(0, 0%, 100%, 0.9);
               font-family: "微软雅黑";
             }
@@ -269,7 +245,7 @@ body,
       .collection {
         ul {
           margin: 0;
-          margin-top: 20px;
+          margin-top: 2rem;
           list-style: none;
           padding: 0;
 
@@ -279,18 +255,16 @@ body,
 
           .select-item {
             position: relative;
-            padding-left: 10px;
-            padding-right: 10px;
-            height: 32px;
-            line-height: 32px;
-            font-size: 0;
+            padding-left: 1rem;
+            padding-right: 1rem;
+            padding-top: 0.5vw;
             color: hsla(0, 0%, 100%, 0.7);
             box-sizing: border-box;
             cursor: pointer;
             transition: all 0.2s;
 
             .select-title {
-              font-size: 14px;
+              font-size: 1vw;
               overflow: hidden;
               text-overflow: ellipsis;
               white-space: nowrap;
@@ -298,13 +272,10 @@ body,
 
               span {
                 position: absolute;
-                width: 30px;
-                font-size: 15px;
               }
 
               a {
-                padding-left: 40px;
-                font-size: 14px;
+                padding-left: 2.8vw;
                 color: inherit;
                 overflow: hidden;
                 text-overflow: ellipsis;
@@ -316,10 +287,10 @@ body,
             i {
               display: none;
               position: absolute;
-              right: 10px;
-              top: 12px;
-              width: 10px;
-              height: 8px;
+              right: 0.66vw;
+              top: 0.79vw;
+              width: 0.66vw;
+              height: 0.59vw;
               background: url("../../assets/images/playon-green.gif") no-repeat;
             }
 
@@ -329,7 +300,6 @@ body,
           }
 
           .selected {
-            padding-right: 28px;
             border-radius: 3px;
             background-color: #1d2129;
             color: #00cc4c;
@@ -341,17 +311,19 @@ body,
       .synopsis {
         color: #babbbd;
         width: 100%;
-        margin-top: 26px;
+        margin-top: 1.7vw;
 
         span {
-          font-size: 18px;
+          font-size: 1.18vw;
         }
 
         p {
           display: -webkit-box;
           -webkit-box-orient: vertical;
           -webkit-line-clamp: 7;
+          height: 10vw;
           overflow: hidden;
+          font-size: 1.06vw;
           margin: 0;
         }
       }
@@ -365,7 +337,7 @@ body,
 
   .tips {
     color: #ccc;
-    font-size: 20px;
+    font-size: 1.2vw;
     font-family: "黑体";
   }
 }

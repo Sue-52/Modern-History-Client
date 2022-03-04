@@ -35,7 +35,7 @@ export default {
     onMounted(() => {
       new Player({
         id: "mse",
-        url: require("@/assets/video/918/" + props.videoUrl + ".mp4"),
+        url: props.videoUrl,
         // 流式布局
         fluid: true,
         // 键盘按键控制默认

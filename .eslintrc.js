@@ -2,6 +2,7 @@ module.exports = {
   root: true,
   env: {
     node: true,
+    jquery: true,
   },
   extends: [
     "plugin:vue/vue3-essential",
@@ -19,6 +20,9 @@ module.exports = {
     "@typescript-eslint/ban-ts-comment": 0, //允许忽略错误
     "@typescript-eslint/no-explicit-any": 0, // 允许 any 类型
     "@typescript-eslint/explicit-module-boundary-types": 0, //形参允许 any
+    "@typescript-eslint/no-var-requires": 0,
+    "@typescript-eslint/no-this-alias": ["off"],
+    "no-unused-vars":0
   },
   overrides: [
     {
