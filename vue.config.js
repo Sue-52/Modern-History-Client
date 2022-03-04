@@ -1,4 +1,5 @@
-// console.log(process.env);
+const webpack = require("webpack");
+
 module.exports = {
   publicPath: "./",
   configureWebpack: {
@@ -30,6 +31,15 @@ module.exports = {
       .options({
         raw: true,
       });
+
+    config.plugin("provide").use(webpack.ProvidePlugin, [
+      {
+        $: "jquery",
+        jquery: "jquery",
+        jQuery: "jquery",
+        "window.jQuery": "jquery",
+      },
+    ]);
   },
   devServer: {
     proxy: {

@@ -164,12 +164,6 @@ export default {
         }
       });
     });
-
-    // watch(props, (update) => {
-    //   // console.log(update.warYear);
-    //   warTime.value = update.warYear;
-    //   console.log(warTime.value);
-    // });
   },
 };
 </script>
