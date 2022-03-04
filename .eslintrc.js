@@ -22,7 +22,7 @@ module.exports = {
     "@typescript-eslint/explicit-module-boundary-types": 0, //形参允许 any
     "@typescript-eslint/no-var-requires": 0,
     "@typescript-eslint/no-this-alias": ["off"],
-    "no-unused-vars":0
+    "no-unused-vars": 0,
   },
   overrides: [
     {
