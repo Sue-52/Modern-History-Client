@@ -144,7 +144,6 @@ onMounted(() => {
     background-color: #a2dbff;
     position: relative;
     overflow: hidden;
-    zoom: 0.8;
   }
   .section4 {
     background-color: gold;
