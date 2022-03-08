@@ -40,12 +40,15 @@ import HomeShowPerson from "@/views/Home/components/HomeShowPerson.vue";
 
 import { ref } from "@vue/reactivity";
 import { onMounted } from "@vue/runtime-core";
+import { useRoute } from "vue-router";
 //#region 全屏滚动效果
 const current = ref(0);
 const isScrolling = ref(false);
 const mainPage = ref();
 const fullPage = ref();
 const deltaY = ref(0);
+const route = useRoute();
+// console.log(route.query);
 
 // next()
 const next = () => {
@@ -77,6 +80,7 @@ const move = (index: number) => {
 };
 // directToMove()
 const directToMove = onMounted(() => {
+  console.log(11);
   let height = mainPage.value.clientHeight;
   let scrollPage = fullPage.value;
   let scrollHeight;
@@ -85,13 +89,6 @@ const directToMove = onMounted(() => {
 });
 // mouseWheelHandle()
 const mouseWheelHandle = (event) => {
-  // 添加冒泡阻止
-  // let evt = event || window.event;
-  // if (evt.stoppropagation) {
-  //   evt.stoppropagation();
-  // } else {
-  //   evt.returnvalue = false;
-  // }
   if (isScrolling.value) return false;
   let e = event.originalEvent || event;
   deltaY.value = e.deltaY;
@@ -111,6 +108,10 @@ const resize = () => {
 };
 onMounted(() => {
   window.addEventListener("resize", resize);
+
+  if (route.params.current) {
+    next();
+  }
 });
 
 //#endregion
@@ -144,7 +145,6 @@ onMounted(() => {
     background-color: #a2dbff;
     position: relative;
     overflow: hidden;
-    zoom: 0.8;
   }
   .section4 {
     background-color: gold;
