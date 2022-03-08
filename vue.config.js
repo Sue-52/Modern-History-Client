@@ -46,7 +46,7 @@ module.exports = {
       "/api": {
         target:
           process.env.BABEL_ENV === "development"
-            ? "http://47.108.197.220:3010/"
+            ? "http://120.27.136.149:3010/"
             : "",
         changeOrigin: true, //是否跨域
         ws: true, //是否代理 websockets

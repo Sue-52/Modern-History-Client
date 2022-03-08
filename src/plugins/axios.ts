@@ -4,7 +4,7 @@ const config = {
   baseURL:
     process.env.NODE_ENV === "development"
       ? "/api/v1"
-      : "http://47.108.197.220:3010/api/v1",
+      : "http://120.27.136.149:3010/api/v1",
   timeout: 60 * 1000, // Timeout,
   withCredentials: false, // Check cross-site Access-Control
   header: {
