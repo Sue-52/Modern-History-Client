@@ -129,10 +129,10 @@ export default {
       font-weight: 700;
       font-size: 30px;
       text-align: center;
-      opacity: 0.4;
+      opacity: 0.6;
 
       span {
-        color: rgba(255, 255, 255, 0.4);
+        color: rgba(255, 255, 255, 1);
       }
     }
 

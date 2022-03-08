@@ -81,7 +81,7 @@
       <!-- 进入文章页面 -->
       <div class="home-to-article">
         <p>想知道更多相关的信息吗？</p>
-        <a href="#"> 跳转到文章页面 ——> </a>
+        <span @click="handleGoBook(item)"> 跳转到书籍页面 ——> </span>
       </div>
     </div>
   </div>
@@ -90,6 +90,7 @@
 <script lang="ts" setup>
 import { ref } from "@vue/reactivity";
 import { getHomePageData } from "@/api/home";
+import { useRouter } from "vue-router";
 interface HomePageData {
   id: number;
   title: string;
@@ -108,6 +109,7 @@ interface HomePageData {
   };
 }
 const homeData = ref<HomePageData[]>([]);
+const router = useRouter();
 
 const getData = () => {
   getHomePageData().then((res: any) => {
@@ -137,6 +139,22 @@ const handleClike = (step) => {
   }
   return nextStep;
 };
+
+// 跳转到书籍页面
+const handleGoBook = (item) => {
+  console.log(item);
+  router.push({
+    name: "Book",
+    query: {
+      bookName: item.title,
+    },
+    params: {
+      url: "918.png",
+      picNum: 6,
+    },
+  });
+};
+
 //#endregion
 </script>
 
@@ -427,11 +445,12 @@ const handleClike = (step) => {
         font-size: 20px;
         font-weight: 900;
       }
-      > a {
+      > span {
         font-size: 18px;
         font-weight: 100;
         text-decoration: none;
         color: #666;
+        cursor: pointer;
       }
     }
   }
